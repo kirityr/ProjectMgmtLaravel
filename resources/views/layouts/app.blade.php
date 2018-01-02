@@ -49,7 +49,8 @@
                             <li><a href="{{ route('companies.index') }}">
                                     <i class="fa fa-building" aria-hidden="true"></i>
                                     Companies
-                                </a></li>
+                                </a>
+                            </li>
                             <li><a href="{{ route('projects.index') }}">
                                     <i class="fa fa-briefcase" aria-hidden="true"></i>
                                     Projects
@@ -60,9 +61,47 @@
                                     Tasks
                                 </a>
                             </li>
+
+                            @if(Auth::user()->role_id == 1)
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                       role="button" aria-expanded="false" aria-haspopup="true">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        Admin
+                                        <span class="caret"></span>
+                                    </a>
+
+                                    <ul class="dropdown-menu">
+
+                                        <li><a href="{{ route('companies.index') }}"> <i class="fa fa-building" aria-hidden="true"></i>
+                                                All pompanies
+                                            </a>
+                                        </li>
+                                        <li><a href="{{ route('projects.index') }}"> <i class="fa fa-briefcase" aria-hidden="true"></i>
+                                                All projects
+                                            </a>
+                                        </li>
+                                        <li><a href="{{ route('tasks.index') }}"> <i class="fa fa-tasks" aria-hidden="true"></i>
+                                                All tasks
+                                            </a>
+                                        </li>
+                                        <li><a href="{{ route('roles.index') }}"> <i class="fa fa-tasks" aria-hidden="true"></i>
+                                                All roles
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+
+                            @endif
+
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                   role="button" aria-expanded="false" aria-haspopup="true">
+                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                    {{ Auth::user()->name }}
+                                    <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">
@@ -70,6 +109,7 @@
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
+                                            <i class="fa fa-sign-out" aria-hidden="true"></i>
                                             Logout
                                         </a>
 

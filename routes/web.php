@@ -29,8 +29,8 @@ Route::middleware(['auth'])->group(function (){
 
     Route::resource('comments','CommentsController');
     Route::resource('roles','RolesController');
-    Route::resource('Tasks','TasksController');
-    Route::resource('Users','UsersController');
+    Route::resource('tasks','TasksController');
+    Route::resource('users','UsersController');
 
 });
 

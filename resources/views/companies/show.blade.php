@@ -40,9 +40,9 @@
         <div class="sidebar-module">
             <h4>Actions</h4>
             <ol class="list-unstyled">
-                <li><a href="/companies/{{$company->id}}/edit">Edit</a></li>
-                <li><a href="/companies/create">Add Company</a></li>
-                <li><a href="/projects/create/{{$company->id}}">Add project</a></li>
+                <li><a href="/companies/{{$company->id}}/edit"> <i class="fa fa-pencil" aria-hidden="true"> edit</i></a></li>
+                <li><a href="/companies/create"><i class="fa fa-plus" aria-hidden="true"></i> company </a></li>
+                <li><a href="/projects/create/{{$company->id}}"><i class="fa fa-plus" aria-hidden="true"></i> project</a></li>
                 <br/>
                 <li>
                     <a href="#" onclick="

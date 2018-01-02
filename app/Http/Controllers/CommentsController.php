@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use Faker\Provider\cs_CZ\Company;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class CommentsController extends Controller
 {
@@ -35,7 +38,21 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(Auth::check()){
+            $comment = Comment::create([
+                'body'=>$request->input('body'),
+                'url'=>$request->input('url'),
+                'user_id'=>Auth::user()->id,
+                'commentable_type'=>$request->input('commentable_type'),
+                'commentable_id'=>$request->input('commentable_id')
+            ]);
+
+            if($comment){
+                return back()->with('success','Comments added successfully');
+            }
+        }
+
+        return back()->withInput()->with('errors','Error creating a comment');
     }
 
     /**

@@ -46,6 +46,20 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
+                            <li><a href="{{ route('companies.index') }}">
+                                    <i class="fa fa-building" aria-hidden="true"></i>
+                                    Companies
+                                </a></li>
+                            <li><a href="{{ route('projects.index') }}">
+                                    <i class="fa fa-briefcase" aria-hidden="true"></i>
+                                    Projects
+                                </a>
+                            </li>
+                            <li><a href="{{ route('projects.index') }}">
+                                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                                    Tasks
+                                </a>
+                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -82,5 +96,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://use.fontawesome.com/74bea79e2b.js"></script>
+
 </body>
 </html>

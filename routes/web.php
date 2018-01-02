@@ -15,16 +15,22 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/hello', function () {
-    return "Hello";
-});
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('companies','CompaniesController');
-Route::resource('projects','ProjectsController');
-Route::resource('roles','RolesController');
-Route::resource('Tasks','TasksController');
-Route::resource('Users','UsersController');
+Route::middleware(['auth'])->group(function (){
+
+    Route::get('projects/create/{company_id?}','ProjectsController@create');
+    Route::resource('projects','ProjectsController');
+
+    Route::resource('companies','CompaniesController');
+
+    Route::resource('comments','CommentsController');
+    Route::resource('roles','RolesController');
+    Route::resource('Tasks','TasksController');
+    Route::resource('Users','UsersController');
+
+});
+

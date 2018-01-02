@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use App\Project;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectsController extends Controller
 {
@@ -14,7 +17,9 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::where('user_id',Auth::user()->id)->get();
+
+        return view('projects.index',['projects'=>$projects]);
     }
 
     /**
@@ -22,9 +27,15 @@ class ProjectsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($company_id = null)
     {
-        //
+        //dump([$company_id]);
+        $companies = null;
+        if(!$company_id){
+            $companies = Company::where('user_id',Auth::user()->id)->get();
+        }
+        return view('projects.create',['company_id'=>$company_id,
+                                            'companies'=>$companies]);
     }
 
     /**
@@ -35,7 +46,21 @@ class ProjectsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(Auth::check()){
+            $project = Project::create([
+                'name'=>$request->input('name'),
+                'company_id'=>$request->input('company_id'),
+                'description'=>$request->input('description'),
+                'user_id'=>Auth::user()->id
+            ]);
+
+            if($project){
+                return redirect()->route('projects.show',['project'=>$project->id])
+                    ->with('success','Project created successfully');
+            }
+        }
+
+        return back()->withInput()->with('errors','Error creating a project');
     }
 
     /**
@@ -46,7 +71,10 @@ class ProjectsController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        $project = Project::find($project->id);
+        //dump($project->comments());
+        $comments = $project->comments;
+        return view('projects.show',['project'=>$project,'comments'=>$comments]);
     }
 
     /**
@@ -57,7 +85,8 @@ class ProjectsController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        $project = Project::find($project->id);
+        return view('projects.edit ',['project'=>$project]);
     }
 
     /**
@@ -69,7 +98,21 @@ class ProjectsController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        //save data
+
+        $projectUpdate = Project::where('id', $project->id)
+            ->update([
+                'name'=> $request->input('name'),
+                'description'=> $request->input('description')
+            ]);
+
+        if($projectUpdate){
+            return redirect()->route('projects.show', ['project'=> $project->id])
+                ->with('success' , 'Project updated successfully');
+        }
+        //redirect
+        return back()->withInput();
+
     }
 
     /**
@@ -80,6 +123,11 @@ class ProjectsController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $findCompany = Project::find($project);
+        if($findCompany-> delete()){
+            return redirect()->route('projects.index')
+                ->with('success','Project got deleted successfully');
+        }
+        return back()->withInput()->with('error','Compnay could not be deleted');
     }
 }

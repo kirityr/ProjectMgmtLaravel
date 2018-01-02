@@ -1,19 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-    <!--
-<script type="text/javascript">
 
-    function deleteCompnay()
-    {
-     var result = confirm('Are you sure you wish to delete the Company ?')
-        if(result){
-            event.preventDefault();
-            document.getElementById('company-del-form').submit();
-        }
-    }
-
-</script>//-->
     <div class="col-md-9 col-lg-9 pull-left">
 
         <!-- The justified navigation menu is meant for single line per list item.
@@ -27,7 +15,9 @@
 
         <!-- Example row of columns -->
 
+
         <div class="row" style="background : white; margin:10px">
+            <a href="/projects/create/{{$company->id}}" class="pull-right btn-sm btn-primary">Add project</a>
             @foreach($company->projects as $project)
                 <div class="col-lg-4">
                     <h2>{{$project->name}}</h2>
@@ -51,6 +41,9 @@
             <h4>Actions</h4>
             <ol class="list-unstyled">
                 <li><a href="/companies/{{$company->id}}/edit">Edit</a></li>
+                <li><a href="/companies/create">Add Company</a></li>
+                <li><a href="/projects/create/{{$company->id}}">Add project</a></li>
+                <br/>
                 <li>
                     <a href="#" onclick="
                       var result = confirm('Are you sure you wish to delete this Company?');
@@ -70,15 +63,6 @@
                 </li>
             </ol>
         </div>
-
-        <!--
-        <div class="sidebar-module">
-            <h4>Elsewhere</h4>
-            <ol class="list-unstyled">
-                <li><a href="#">March 2014</a></li>
-            </ol>
-        </div>-->
-
     </div>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

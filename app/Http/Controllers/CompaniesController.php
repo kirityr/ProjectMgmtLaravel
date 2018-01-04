@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Company;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +18,9 @@ class CompaniesController extends Controller
     {
         $companies = Company::where('user_id',Auth::user()->id)->get();
 
-        return view('companies.index',['companies'=>$companies]);
+        $users = User::get();
+
+        return view('companies.index',['companies'=>$companies,'users'=>$users]);
     }
 
     /**

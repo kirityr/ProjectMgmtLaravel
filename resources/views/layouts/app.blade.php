@@ -12,6 +12,22 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
+
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/jq-3.2.1/dt-1.10.16/datatables.min.css"/>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs/jq-3.2.1/dt-1.10.16/datatables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#users_table').DataTable();
+        });
+
+    </script>
+
 </head>
 <body>
     <div id="app">
@@ -126,8 +142,8 @@
         </nav>
 
         <div class="container">
-            @include('partials.errors');
-            @include('partials.success');
+            @include('partials.errors')
+            @include('partials.success')
             <div class="row">
              @yield('content')
             </div>
@@ -136,6 +152,9 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+    <script src="{{ asset('js/datatables.min.js') }}"></script>
     <script src="https://use.fontawesome.com/74bea79e2b.js"></script>
 
 </body>
